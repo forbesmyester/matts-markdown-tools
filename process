@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+CURRENT="$(cat "example.md")"
+
+while echo "$CURRENT" | grep '```.*#' > /dev/null ; do
+    CURRENT="$(echo "$CURRENT" | node ./remark-copy-code-meta-hash-up.js)"
+done
+
+
+while echo "$CURRENT" | grep '``` *unixpipe' > /dev/null ; do
+    CURRENT="$(echo "$CURRENT" | node ./unixpipe.js)"
+done
+
+echo "$CURRENT" | node ./rehype.js
