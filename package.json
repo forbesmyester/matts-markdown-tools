@@ -1,6 +1,6 @@
 {
   "name": "plain-text-blog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "bin": "./plain-text-blog-compile",
@@ -17,7 +17,7 @@
     "remark-parse": "^9.0.0",
     "remark-rehype": "^8.1.0",
     "remark-stringify": "^9.0.1",
-    "remark-unixpipe": "^0.1.1",
+    "remark-unixpipe": "^0.1.2",
     "unified": "^9.2.1",
     "unified-stream": "^1.0.6"
   }

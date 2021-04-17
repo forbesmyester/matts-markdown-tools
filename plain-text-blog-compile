@@ -3,7 +3,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-CURRENT="$(cat "example.md")"
+CURRENT="$(cat "/dev/stdin")"
 
 while echo "$CURRENT" | grep '```.*#' > /dev/null ; do
     CURRENT="$(echo "$CURRENT" | node ./remark-copy-code-meta-hash-up.js)"
