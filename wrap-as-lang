@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+INPUT="$(cat "/dev/stdin")"
+
+echo "\`\`\`$1"
+echo "$INPUT" | awk '{ print $0 }'
+echo "\`\`\`"
