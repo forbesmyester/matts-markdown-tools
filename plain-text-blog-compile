@@ -15,4 +15,8 @@ while echo "$CURRENT" | grep '``` *unixpipe' > /dev/null ; do
     CURRENT="$(echo "$CURRENT" | node "$SCRIPT_DIR/remark-unixpipe.js")"
 done
 
+if [ "$#" -gt "0" ] && [ "$1" == "--as-markdown" ]; then
+    echo "$CURRENT"
+    exit 0
+fi
 echo "$CURRENT" | node "$SCRIPT_DIR/rehype.js"
