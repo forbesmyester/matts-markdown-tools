@@ -4,14 +4,15 @@ set -euo pipefail
 IFS=$'\n\t'
 
 CURRENT="$(cat "/dev/stdin")"
+SCRIPT_DIR="$(dirname "$0")"
 
 while echo "$CURRENT" | grep '```.*#' > /dev/null ; do
-    CURRENT="$(echo "$CURRENT" | node ./remark-copy-code-meta-hash-up.js)"
+    CURRENT="$(echo "$CURRENT" | node "$SCRIPT_DIR/remark-copy-code-meta-hash-up.js")"
 done
 
 
 while echo "$CURRENT" | grep '``` *unixpipe' > /dev/null ; do
-    CURRENT="$(echo "$CURRENT" | node ./remark-unixpipe.js)"
+    CURRENT="$(echo "$CURRENT" | node "$SCRIPT_DIR/remark-unixpipe.js")"
 done
 
-echo "$CURRENT" | node ./rehype.js
+echo "$CURRENT" | node "$SCRIPT_DIR/rehype.js"
