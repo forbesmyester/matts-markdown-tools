@@ -2,33 +2,15 @@
 
 ## Autolink literals
 
-www.example.com, https://example.com, and contact@example.com.
-
-## Strikethrough
-
-~one~ or ~~two~~ tildes.
-
-## Table
-
-| AA \| BB | CCCC  | DDDD | EEEE |
-| - | :- | -: | :-: |
-| 3 | 3  |  4 |  5  |
-
-## Three Cows
-
-```unixpipe echo cows | cowsay | sed 's/^/    /' # unixpipe echo three | cowsay | sed 's/^/    /' # unixpipe echo hello | cowsay | sed 's/^/    /'
+```unixpipe csvtk csv2md
+A,B,C
+1,2,3
 ```
-
-## Literate Code
-
-<div class="literate-code">
-
-```unixpipe env NAME="World" envsubst | sed 's/^/    /'
-Hello ${NAME}
+```shell # env NAME="World!" envsubst | wrap-as-lang shell # unixpipe env NAME="World!" envsubst | diagram-dot svg
+  digraph {
+    "Greeting" -> "Hello $NAME"
+  }
 ```
-
-</div>
-
 
 ## Tasklist
 
