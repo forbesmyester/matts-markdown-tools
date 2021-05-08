@@ -6,10 +6,13 @@ const remarkCodeImport = require('remark-code-import');
 const stringifyRemark = require('remark-stringify')
 const readline = require('readline');
 const vfile = require('vfile');
+const path = require('path');
 
 function constructVfile(contents) {
     return vfile({
-        contents
+        contents,
+        path: path.join(process.cwd(), '._UNKNOWN_FILENAME.md'),
+        dirname: process.cwd()
     });
 }
 
