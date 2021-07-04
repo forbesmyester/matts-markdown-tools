@@ -5,7 +5,7 @@ show_help() {
     echo ""
     echo "-h = Help"
     echo "-m = output Markdown instead of HTML"
-    echo "-b = the number to add to headers (could be negative)"
+    echo "-b = the number to add to headers (could be negative), for example 2 makes a h1 into a h3"
     echo ""
     exit 0
 }
