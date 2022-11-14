@@ -5,7 +5,7 @@ IFS=$'\n\t'
 
 echo "$1" | grep -F "/" > /dev/null &&  mkdir -p "$(dirname "$1")" || true
 
-if [[ "$1" == "svg" ]]; then
+if [[ "$1" == "svg" ]] && [ "$#" -eq 1 ]; then
     cat "/dev/stdin" | dot -T svg | awk '/<svg/ { PRINT=1; }; PRINT==1 { print $0; }' | tr -d '\n'
     exit 0
 fi
