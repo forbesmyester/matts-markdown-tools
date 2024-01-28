@@ -13,8 +13,8 @@ function post {
 
 echo "$1" | grep -F "/" > /dev/null &&  mkdir -p "$(dirname "$1")" || true
 
-if [ "$#" -lt 2 ]; then
-    cat "/dev/stdin" | dot -T "$1" | post "$1"
+if [[ "$1" == "svg" ]]; then
+    cat "/dev/stdin" | dot -T svg | awk '/<svg/ { PRINT=1; }; PRINT==1 { print $0; }' | tr -d '\n'
     exit 0
 fi
 
