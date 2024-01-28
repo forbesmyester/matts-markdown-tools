@@ -3,17 +3,23 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+function post {
+    if [[ "$1"  == "svg" ]]; then
+        awk '/<svg/ { PRINT=1; }; PRINT==1 { print $0; }' | tr -d '\n'
+        exit
+    fi
+    cat
+}
+
 echo "$1" | grep -F "/" > /dev/null &&  mkdir -p "$(dirname "$1")" || true
 
-if [[ "$1" == "svg" ]]; then
-    cat "/dev/stdin" | dot -T svg | awk '/<svg/ { PRINT=1; }; PRINT==1 { print $0; }' | tr -d '\n'
+if [ "$#" -lt 2 ]; then
+    cat "/dev/stdin" | dot -T "$1" | post "$1"
     exit 0
 fi
 
-cat "/dev/stdin" | dot -T ${1##*.} -o "$1"
+mkdir -p "$(dirname "$2")"
 
-if [ "$#" -gt 1 ]; then
-    echo "![$2]($1)"
-    exit
-fi
-echo "![$1]($1)"
+cat "/dev/stdin" | dot -T "$1" | post "$1" > "$2"
+
+echo "![$1]($2)"

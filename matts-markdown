@@ -4,6 +4,7 @@ show_help() {
     echo "$1 [-h] [-m] [-b INTEGER]"
     echo ""
     echo "-h = Help"
+    echo "-t = Add TOC"
     echo "-m = output Markdown instead of HTML"
     echo "-b = the number to add to headers (could be negative), for example 2 makes a h1 into a h3"
     echo ""
@@ -11,12 +12,16 @@ show_help() {
 }
 
 MARKDOWN=0
+TOC=0
 BEHEAD=0
 
-while getopts "hmb:" opt; do
+while getopts "hmtb:" opt; do
     case "$opt" in
         m)
             MARKDOWN=1
+            ;;
+        t)
+            TOC=1
             ;;
         h)
             show_help
@@ -40,8 +45,13 @@ IFS=$'\n\t'
 
 SCRIPT_DIR="$(dirname "$0")"
 
+if [ "$TOC" -gt 0 ]; then
+    CURRENT="$(echo "$CURRENT" | node "$SCRIPT_DIR/remark-toc.mjs")"
+fi
+
 while echo "$CURRENT" | grep '```.*#' > /dev/null ; do
     CURRENT="$(echo "$CURRENT" | node "$SCRIPT_DIR/remark-copy-code-meta-hash-down.js")"
+    echo "$CURRENT"
 done
 
 
